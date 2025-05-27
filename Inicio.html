@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DescomplicaBR</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="footer_header/Footer/Footer.css" />
+    <link rel="stylesheet" href="footer_header/header/header.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background: #f9f9f9;
+        color: #1a1a1a;
+        line-height: 1.6;
+      }
+
+      .hero {
+        padding: 60px 40px;
+        background: #e0f2fe;
+        text-align: center;
+      }
+
+      .hero h2 {
+        font-size: 36px;
+        font-weight: 800;
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .catalogo {
+        padding: 60px 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card img {
+        max-width: 80px;
+        margin-bottom: 15px;
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .card a {
+        display: inline-block;
+        margin-top: 10px;
+        background: #3b82f6;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.3s;
+      }
+
+      .card a:hover {
+        background: #2563eb;
+      }
+      .final-text {
+        padding: 40px;
+        text-align: center;
+        background: #f3f4f6;
+      }
+
+      @media (max-width: 600px) {
+        .hero h2 {
+          font-size: 28px;
+        }
+
+        .hero p {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a style="text-decoration: none" href="Inicio.html">
+        <h1 style="cursor: pointer; color: #fff">DescomplicaBR</h1>
+      </a>
+
+      <nav class="nav">
+        <i class="fa-solid fa-bars"></i>
+        <ul>
+          <li><a href="Inicio.html">Início</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+        <ul class="nav-list">
+          <li><a href="Inicio.html">Início</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <h2>O conhecimento que transforma vidas</h2>
+        <p>
+          Aqui você aprende o essencial sobre finanças, política, educação e
+          empreendedorismo de um jeito simples, direto e acessível pra todos.
+        </p>
+      </section>
+
+      <section class="catalogo" id="catalogo">
+        <div class="card">
+          <img
+            src="https://images.vexels.com/media/users/3/204867/isolated/preview/375740085bfdb1731fd40c6c27b606f4-icone-de-nota-de-dinheiro.png"
+            alt="Educação Financeira"
+          />
+          <h3>Educação Financeira</h3>
+          <a href="pages/Educação-financeira/Quiz.html">Explorar</a>
+        </div>
+        <div class="card">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/1904/1904425.png"
+            alt="Educação Básica"
+          />
+          <h3>Educação Básica</h3>
+          <a href="#">Explorar</a>
+        </div>
+        <div class="card">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            alt="Política"
+          />
+          <h3>Política</h3>
+          <a href="#">Explorar</a>
+        </div>
+        <div class="card">
+          <img
+            src="https://png.pngtree.com/png-clipart/20230504/original/pngtree-investing-line-icon-png-image_9137886.png"
+            alt="Empreendedorismo"
+          />
+          <h3>Empreendedorismo</h3>
+          <a href="#">Explorar</a>
+        </div>
+      </section>
+      <section class="final-text">
+        <p>
+          Esse site foi feito pra quem quer parar de viver no automático e
+          começar a entender o mundo de verdade. <br />
+          <strong
+            >Cada tema aqui foi pensado pra te dar base, visão e
+            atitude.</strong
+          >
+          Escolhe um e vai sem medo.
+        </p>
+      </section>
+    </main>
+
+    <footer id="contato">
+      <div class="main-content">
+        <div class="left box">
+          <h2>Sobre nós</h2>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iste
+              facilis harum eos vel incidunt distinctio corrupti iure? Rem
+            </p>
+
+            <div class="social">
+              <a href="#"><span class="fab fa-facebook-f"></span></a>
+              <a href="#"><span class="fab fa-twitter"></span></a>
+              <a href="#"><span class="fab fa-instagram"></span></a>
+              <a href="#"><span class="fab fa-youtube"></span></a>
+            </div>
+          </div>
+        </div>
+        <!--left box-->
+        <div class="center box">
+          <h2>Endereço</h2>
+          <div class="content">
+            <div class="place">
+              <span class="fas fa-map-marker"></span>
+              <span class="text">Rua Exemplo, 123</span>
+            </div>
+
+            <div class="phone">
+              <span class="fas fas fa-phone-alt"></span>
+              <span class="text">+55 (00) 0000-0000</span>
+            </div>
+
+            <div class="email">
+              <span class="fas fa-envelope"></span>
+              <span class="text">exemplo@exemplo.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="right box">
+          <h2>Contato</h2>
+          <div class="content">
+            <form action="#">
+              <div class="email">
+                <div class="text">Email *</div>
+                <input type="email" required />
+              </div>
+              <div class="msg">
+                <div class="text">Mensagem *</div>
+                <textarea rows="2" cols="25" required></textarea>
+              </div>
+              <div class="btn">
+                <button type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--main-content-->
+      <div class="bottom"></div>
+    </footer>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script defer src="footer_header/header/javascript/menu.js"></script>
+  </body>
+</html>
