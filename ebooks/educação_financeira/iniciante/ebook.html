@@ -138,9 +138,7 @@
   </head>
   <body>
     <header>
-      <a href="../../../pages/Educação-financeira/Nivel/Iniciante.html"
-        ><i class="fa-solid fa-arrow-left"></i
-      ></a>
+      <i onclick="voltarPagina()" class="fa-solid fa-arrow-left"></i>
       <div>
         <h1>Escolha o Livro Ideal Pra Você</h1>
         <p>Transforme sua vida financeira com conhecimento na medida certa!</p>
@@ -168,5 +166,10 @@
         </div>
       </div>
     </main>
+    <script>
+      function voltarPagina() {
+        window.history.back(); // ou window.history.go(-1);
+      }
+    </script>
   </body>
 </html>

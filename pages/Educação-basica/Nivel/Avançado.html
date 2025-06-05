@@ -77,11 +77,27 @@
       .ebook a:hover {
         background-color: #2563eb;
       }
-      .produtos {
-        display: flex;
+            .produtos {
+        width: max-content;
+        text-align: center;
+        padding: 10px;
+        border-radius: 20px;
         justify-content: center;
-        gap: 20px;
+        background-color: #2563eb;
+        margin: 0 auto;
         margin-top: 20px;
+        transition: all 0.3s ease;
+      }
+      .produtos:hover {
+        background-color: purple;
+        transform: scale(1.05);
+        
+      }
+      .produtos a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -237,11 +253,9 @@
       </div>
 
       <div class="produtos">
-        <div class="ebook" id="ebook">
-          <a href="../../../ebooks/educação_financeira/iniciante/ebook.html"
-            >👉 Clique agora e descubra o que vai te fazer sair na frente!</a
-          >
-        </div>
+        <a href="../../../ebooks/educação_financeira/iniciante/ebook.html"
+          >👉 Clique agora e descubra!</a
+        >
       </div>
     </main>
 

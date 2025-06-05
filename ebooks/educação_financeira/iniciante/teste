@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loja por Idade</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 30px;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        background-color: #eee;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .btn.active {
+        background-color: #2ecc71;
+        color: white;
+        font-weight: bold;
+      }
+
+      .categorias {
+        margin-bottom: 20px;
+      }
+
+      .categoria {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .recomendado {
+        color: #2ecc71;
+        font-weight: bold;
+      }
+
+      .produtos {
+        display: none;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+      }
+
+      .produtos.active {
+        display: grid;
+      }
+
+      .produto {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        background-color: #fafafa;
+      }
+
+      .produto img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      .produto h4 {
+        margin: 10px 0 5px;
+      }
+
+      .produto p {
+        font-size: 14px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Escolha sua faixa etária</h1>
+    <div class="btn-group">
+      <button class="btn" onclick="selecionarIdade('crianca', this)">
+        1-11 anos
+      </button>
+      <button class="btn" onclick="selecionarIdade('adolescente', this)">
+        12-17 anos
+      </button>
+      <button class="btn" onclick="selecionarIdade('adulto', this)">
+        18+ anos
+      </button>
+    </div>
+
+    <div class="categorias">
+      <div class="categoria" id="cat-crianca">🧒 Criança</div>
+      <div class="categoria" id="cat-adolescente">🧑 Adolescente</div>
+      <div class="categoria" id="cat-adulto">🧔 Adulto</div>
+    </div>
+
+    <!-- Produtos Criança -->
+    <div class="produtos" id="produtos-crianca">
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Boneco"
+          alt="Foto do produto"
+        />
+        <h4>Produto criança 1</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, eaque.
+          Totam earum velit fugit enim officiis necessitatibus debitis eius,
+          aliquid quidem iusto expedita facilis cupiditate asperiores labore
+          dignissimos ea rerum.
+        </p>
+      </div>
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Quebra-Cabeça"
+          alt="Foto do produto"
+        />
+        <h4>Produto criança 2</h4>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus ipsa
+          beatae dolores quisquam praesentium repudiandae enim, labore
+          voluptatibus earum inventore exercitationem voluptatum similique
+          dignissimos quos esse consequuntur temporibus nulla suscipit?
+        </p>
+      </div>
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Livro+Infantil"
+          alt="Foto do produto"
+        />
+        <h4>Produto criança 3</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. In, id. Illo
+          quidem quasi nesciunt iste commodi? Quisquam nam sed corporis
+          laudantium officiis at molestias possimus repudiandae! Repudiandae
+          error labore unde!
+        </p>
+      </div>
+    </div>
+
+    <!-- Produtos Adolescente -->
+    <div class="produtos" id="produtos-adolescente">
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Fone"
+          alt="Foto do produto"
+        />
+        <h4>Produto adolescente 1</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam ea
+          voluptas accusantium dolorum in debitis nostrum pariatur explicabo
+          sunt, sed delectus, doloribus architecto officia fuga, eius earum
+          maiores? Dolorum, reiciendis?
+        </p>
+      </div>
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Mochila"
+          alt="Foto do produto"
+        />
+        <h4>Produto adolescente 2</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint facere
+          explicabo officiis porro facilis commodi atque assumenda quod libero
+          provident odit aliquam exercitationem enim veniam laborum numquam sit,
+          quas labore?
+        </p>
+      </div>
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Camisa"
+          alt="Foto do produto"
+        />
+        <h4>Produto adolescente 3</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, ex
+          perspiciatis consequuntur autem voluptatem quis! Ad provident eveniet
+          aspernatur, ea hic pariatur accusamus natus autem excepturi, nisi illo
+          consectetur doloremque.
+        </p>
+      </div>
+    </div>
+
+    <!-- Produtos Adulto -->
+    <div class="produtos" id="produtos-adulto">
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Cafeteira"
+          alt="Foto do produto"
+        />
+        <h4>Produto adulto 1</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
+          obcaecati sequi illum porro quasi ab at mollitia voluptatibus
+          cupiditate magnam. Libero, molestiae hic! Impedit numquam veniam unde
+          rerum adipisci fugit.
+        </p>
+      </div>
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Relógio"
+          alt="Foto do produto"
+        />
+        <h4>Produto adulto 2</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum
+          dolorem nesciunt, eveniet error laboriosam vero, ratione iusto soluta
+          optio eaque voluptatum eligendi deleniti nihil voluptate consectetur
+          impedit, aspernatur ducimus animi.
+        </p>
+      </div>
+      <div class="produto">
+        <img
+          src="https://via.placeholder.com/100x100?text=Livro"
+          alt="Foto do produto"
+        />
+        <h4>Produto adulto 3</h4>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore sed
+          nihil aut tenetur provident non, facere officiis culpa praesentium
+          doloribus qui fuga minus illo mollitia magnam aspernatur laborum!
+          Necessitatibus, consequatur.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function selecionarIdade(grupo, botaoClicado) {
+        // Resetar botões
+        const botoes = document.querySelectorAll(".btn");
+        botoes.forEach((btn) => {
+          btn.classList.remove("active");
+          btn.innerText = btn.innerText.replace(" (Recomendado)", "");
+        });
+
+        // Ativar botão clicado
+        botaoClicado.classList.add("active");
+        botaoClicado.innerText += " (Recomendado)";
+
+        // Resetar categorias
+        document.querySelectorAll(".categoria").forEach((cat) => {
+          cat.innerHTML = cat.innerHTML.replace(
+            ' <span class="recomendado">(Recomendado)</span>',
+            ""
+          );
+        });
+
+        // Marcar categoria recomendada
+        const categoriaId = `cat-${grupo}`;
+        const categoria = document.getElementById(categoriaId);
+        categoria.innerHTML +=
+          ' <span class="recomendado">(Recomendado)</span>';
+
+        // Mostrar produtos da faixa etária
+        document.querySelectorAll(".produtos").forEach((div) => {
+          div.classList.remove("active");
+        });
+        document.getElementById(`produtos-${grupo}`).classList.add("active");
+      }
+    </script>
+  </body>
+</html>
