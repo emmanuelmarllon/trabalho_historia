@@ -1,601 +1,873 @@
-<style>
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa;
-    color: #333;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  #filtros {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-  }
-
-  #filtros h2 {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 10px;
-    font-weight: 700;
-    color: #444;
-  }
-
-  .btn {
-    background: #e1e8f7;
-    border: none;
-    padding: 10px 15px;
-    margin: 0;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #556;
-    transition: background-color 0.3s, color 0.3s;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    flex: 1 1 120px;
-    text-align: center;
-    min-width: 100px;
-    max-width: 180px;
-  }
-
-  .btn:hover {
-    background-color: #a4c2ff;
-    color: #fff;
-  }
-
-  .btn.active {
-    background-color: #3b82f6;
-    color: white;
-    box-shadow: 0 0 15px #3b82f6aa;
-  }
-
-  #searchContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    padding: 0 10px;
-  }
-
-  #searchInput {
-    width: 100%;
-    max-width: 500px;
-    padding: 14px 18px;
-    border-radius: 10px;
-    border: 2px solid #ddd;
-    font-size: 18px;
-    transition: border-color 0.3s;
-    box-sizing: border-box;
-  }
-
-  #searchInput:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 8px #3b82f6aa;
-  }
-
-  .bloco-nivel {
-    margin-bottom: 40px;
-  }
-
-  .bloco-nivel h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 15px;
-    border-left: 6px solid #3b82f6;
-    padding-left: 12px;
-  }
-
-  .produtos-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 0 10px;
-    box-sizing: border-box;
-  }
-
-  .produto {
-    background: white;
-    width: 100%;
-    max-width: 240px;
-    border-radius: 12px;
-    padding: 18px 15px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
-  }
-
-  .produto:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-  }
-
-  .produto p {
-    margin: 0;
-    font-weight: 600;
-    color: #444;
-    flex-grow: 1;
-    font-size: 1rem;
-  }
-
-  .produto img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    transition: height 0.3s;
-  }
-
-  .produto.pago {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-    box-shadow: 0 0 20px #f59e0baa;
-    position: relative;
-  }
-
-  .produto.pago:hover {
-    box-shadow: 0 0 30px #fbbf24;
-    transform: translateY(-8px) scale(1.03);
-  }
-
-  .produto.pago::before {
-    content: "🔥 PAGO";
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #b45309;
-    color: white;
-    font-weight: 700;
-    padding: 4px 8px;
-    font-size: 0.75rem;
-    border-radius: 8px;
-    box-shadow: 0 0 8px #b45309cc;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 900px) {
-    #filtros {
-      justify-content: space-around;
-      gap: 15px;
-    }
-    .btn {
-      flex: 1 1 140px;
-      font-size: 0.95rem;
-      padding: 10px 12px;
-    }
-    #searchInput {
-      width: 50%;
-      height: 45px;
-      font-size: 16px;
-      padding: 12px 14px;
-    }
-    .bloco-nivel h3 {
-      font-size: 1.6rem;
-    }
-    .produto {
-      max-width: 250px;
-      width: auto;
-    }
-    .produto img {
-      height: 140px;
-    }
-  }
-
-  @media (max-width: 550px) {
-    #filtros {
-      align-items: center;
-      gap: 20px;
-    }
-    .btn {
-      width: 90%;
-      flex: none;
-      font-size: 1rem;
-    }
-    .produtos-grid {
-      padding: 0 15px;
-    }
-    .produto {
-      max-width: 250px;
-      width: auto;
-      height: 100%;
-    }
-    .produto img {
-      height: 220px;
-    }
-    .bloco-nivel h3 {
-      font-size: 1.4rem;
-    }
-    #searchInput {
-      width: 50%;
-      height: 45px;
-      font-size: 14px;
-      padding: 10px 12px;
-    }
-  }
-</style>
-
-<div id="searchContainer">
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Pesquisar..."
-    onkeyup="filtrarProdutos()"
-  />
-</div>
-<div id="filtros">
-  <h2>Filtrar por faixa etária</h2>
-  <button class="btn" onclick="filtrarIdade('crianca', this)">1-11 anos</button>
-  <button class="btn" onclick="filtrarIdade('adolescente', this)">
-    12-17 anos
-  </button>
-  <button class="btn" onclick="filtrarIdade('adulto', this)">18+ anos</button>
-  <button class="btn active" onclick="filtrarIdade('', this)">
-    Mostrar todos
-  </button>
-</div>
-
-<
-<div class="bloco-nivel" data-nivel="iniciante">
-  <h3>Iniciante - Level Up</h3>
-  <div class="produtos-grid">
-    <div class="produto" data-idade="crianca">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Livro de aventuras para iniciantes"
-      />
-      <h2>Aprender Brincando: O Básico Que Faz Toda Diferença</h2>
-      <p>
-        Jogos, vídeos e desenhos pra aprender português, matemática e ciências
-        de um jeito divertido e fácil.
-      </p>
-    </div>
-
-    <div class="produto pago" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Curso introdutório para adultos"
-      />
-      <h2>
-        Super Base Pro: O Turbo Que Vai Mudar Seu Jeito de Aprender
-        <span>🔥 VIP</span>
-      </h2>
-      <p>
-        Conteúdo completo com aulas exclusivas, desafios e suporte pra você
-        dominar o básico e voar nas matérias.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Guia de estudo pra teens"
-      />
-      <h2>Descomplica a Base: Domine o Essencial com Estilo</h2>
-      <p>
-        Aprenda o básico das matérias principais com jogos e vídeos que deixam
-        tudo mais maneiro.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="crianca">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Jogo educativo simples"
-      />
-      <h2>Primeiro Passo no Saber: Seu Guia Para Começar com Sucesso</h2>
-      <p>
-        Base forte com atividades leves que fazem o estudo virar brincadeira.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Kit de experimentos fáceis"
-      />
-      <h2>Mini Cientista</h2>
-      <p>Experimentos que fazem a galera se apaixonar pela ciência.</p>
-    </div>
-
-    <div class="produto" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Curso simples para reforço básico"
-      />
-      <h2>Reforço Básico: Aprenda o Essencial com Confiança</h2>
-      <p>
-        Curso simples com vídeos e exercícios pra fortalecer sua base sem
-        complicação.
-      </p>
-    </div>
-  </div>
-</div>
-
-<div class="bloco-nivel" data-nivel="intermediario">
-  <h3>Intermediário - Tá ficando sério</h3>
-  <div class="produtos-grid">
-    <!-- Crianças +10 -->
-    <div class="produto" data-idade="crianca">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Português descomplicado"
-      />
-      <h2>Português Descomplicado: Verbos e Interpretação</h2>
-      <p>
-        Aulas práticas com exemplos do dia a dia pra você dominar verbos e
-        textos sem sufoco.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="crianca">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Matemática na prática"
-      />
-      <h2>Matemática na Prática: Multiplicação e Frações</h2>
-      <p>
-        Jogos e exercícios pra você se amarrar em matemática e mandar bem nas
-        provas.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="crianca">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Ciências curiosas"
-      />
-      <h2>Ciências Curiosas: Sistema Solar e Meio Ambiente</h2>
-      <p>
-        Vídeos e desafios que fazem você entender o universo e cuidar do
-        planeta.
-      </p>
-    </div>
-
-    <!-- Adolescentes 12-17 -->
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="História e geografia"
-      />
-      <h2>Guia Completo de História e Geografia do Brasil</h2>
-      <p>
-        Conheça o Brasil colonial, cultura indígena e as regiões do país de
-        forma fácil.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Planejamento escolar"
-      />
-      <h2>Estratégias de Estudo: Monte Seu Plano e Arrase nas Provas</h2>
-      <p>
-        Aprenda a criar cronogramas leves, definir metas e acompanhar seu
-        progresso.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Ferramentas de estudo"
-      />
-      <h2>Ferramentas de Estudo Turbo: Resumos, Simulados e Mais</h2>
-      <p>Resumos em PDF, planilhas e quizzes pra revisar e praticar sempre.</p>
-    </div>
-
-    <!-- Adultos +18 -->
-    <div class="produto" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Pensamento lógico"
-      />
-      <h2>Pensamento Lógico e Organização: O Segredo do Sucesso</h2>
-      <p>
-        Desenvolva criatividade e organização pra mandar bem na escola e na
-        vida.
-      </p>
-    </div>
-
-    <div class="produto" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Curso completo intermediário"
-      />
-      <h2>Curso Completo Intermediário: Domine o Conteúdo</h2>
-      <p>
-        Vídeos, apostilas e atividades práticas para fixar o que você aprendeu.
-      </p>
-    </div>
-
-    <!-- Produto Pago VIP -->
-    <div class="produto pago" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Mentoria e simulados avançados"
-      />
-      <h2>
-        Intermediário VIP: Mentoria e Simulados Avançados <span>🔥 VIP</span>
-      </h2>
-      <p>
-        Conteúdo exclusivo e acompanhamento pra garantir sua aprovação no ataque
-        final.
-      </p>
-    </div>
-  </div>
-</div>
-
-<div class="bloco-nivel" data-nivel="avancado">
-  <h3>Avançado - Pra quem quer ser nota mil</h3>
-  <div class="produtos-grid">
-    <!-- Produto 1 -->
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Gestão de tempo e autonomia"
-      />
-      <h2>Gestão de Tempo e Autonomia</h2>
-      <p>Técnicas de alta performance, revisão eficiente e estudo ativo pra dominar seus estudos.</p>
-    </div>
-
-    <!-- Produto 2 -->
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Redação argumentativa nota mil"
-      />
-      <h2>Redação Avançada: Nota Mil</h2>
-      <p>Desenvolva tese forte, argumentação com repertório e estrutura perfeita pra arrebentar.</p>
-    </div>
-
-    <!-- Produto 3 -->
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Matemática aplicada"
-      />
-      <h2>Matemática Aplicada: Problemas Reais</h2>
-      <p>Funções, gráficos, álgebra e análise prática para a vida real e provas casca-grossa.</p>
-    </div>
-
-    <!-- Produto 4 -->
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Ciências humanas com contexto"
-      />
-      <h2>Ciências Humanas Contextualizadas</h2>
-      <p>Geopolítica, economia, história crítica e cultura pra você entender o mundo de verdade.</p>
-    </div>
-
-    <!-- Produto 5 -->
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Ciências da natureza investigativas"
-      />
-      <h2>Ciências da Natureza: Investigação e Contexto</h2>
-      <p>Biologia molecular, física e química na prática, sem decoreba.</p>
-    </div>
-
-    <!-- Produto 6 -->
-    <div class="produto" data-idade="adolescente">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Interpretação avançada de textos"
-      />
-      <h2>Interpretação e Multiletramentos</h2>
-      <p>Leia memes, tirinhas e notícias entendendo ironia, discurso e contexto além do óbvio.</p>
-    </div>
-
-    <!-- Produto 7 -->
-    <div class="produto" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Projeto de vida e futuro"
-      />
-      <h2>Projeto de Vida e Futuro Profissional</h2>
-      <p>Teste vocacional, escolha de carreira com propósito e desenvolvimento das soft skills.</p>
-    </div>
-
-    <!-- Produto 8 -->
-    <div class="produto" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Ferramentas e recursos de elite"
-      />
-      <h2>Ferramentas e Recursos de Elite</h2>
-      <p>Banco de questões, correções comentadas e simulados que vão elevar seu nível.</p>
-    </div>
-
-    <!-- Produto 9 -->
-    <div class="produto" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Painel do estudante expert"
-      />
-      <h2>Painel do Estudante Expert</h2>
-      <p>Notícias, debates e dicas pra você ser um estudante fodão, informado e produtivo.</p>
-    </div>
-
-    <!-- Produto Pago VIP -->
-    <div class="produto pago" data-idade="adulto">
-      <img
-        src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
-        alt="Curso avançado VIP"
-      />
-      <h2>Avançado VIP: Mentoria e Simulados Exclusivos <span>🔥 VIP</span></h2>
-      <p>Conteúdo premium com mentorias, feedback real e simulados ultra personalizados pra garantir a aprovação.</p>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<script>
-  let filtroIdadeAtivo = "";
-
-  function filtrarIdade(idade, botao) {
-    filtroIdadeAtivo = idade;
-
-    // Marca só o botão ativo
-    document.querySelectorAll("#filtros .btn").forEach((btn) => {
-      btn.classList.remove("active");
-    });
-    botao.classList.add("active");
-
-    filtrarProdutos();
-  }
-
-  function filtrarProdutos() {
-    const searchInput = document
-      .getElementById("searchInput")
-      .value.toLowerCase();
-    const produtos = document.querySelectorAll(".produto");
-
-    produtos.forEach((produto) => {
-      const idadeProduto = produto.getAttribute("data-idade");
-      const nomeProduto = produto.querySelector("h2").textContent.toLowerCase();
-
-      // Verifica filtro de idade
-      let idadeMatch = true;
-      if (filtroIdadeAtivo && filtroIdadeAtivo !== "") {
-        idadeMatch = idadeProduto === filtroIdadeAtivo;
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Educação Básica - Loja</title>
+    <link rel="stylesheet" href="../footer_header/Footer/Footer.css" />
+    <link rel="stylesheet" href="../root/root.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      /* (Seu CSS permanece igual, pode copiar daqui) */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f7fa;
+        color: #333;
+        padding: 0px;
+        margin: 0;
+      }
+      main {
+        padding: 0 40px;
+        margin: 0 auto;
+      }
+      #filtros {
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      #filtros h2 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 700;
+        color: #444;
+      }
+      .btn {
+        background: var(--violeta);
+        border: none;
+        padding: 10px 15px;
+        margin: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--branco);
+        transition: background-color 0.3s, color 0.3s;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        flex: 1 1 120px;
+        text-align: center;
+        min-width: 100px;
+        max-width: 180px;
+      }
+      .btn:hover {
+        background-color: var(--azul_escuro);
+        color: var(--branco);
+      }
+      .btn.active {
+        background-color: var(--azul_escuro);
+        color: var(--branco);
+        box-shadow: 0 0 15px var(--azul_claro);
+      }
+      #searchContainer {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        padding: 0 10px;
+      }
+      #searchInput {
+        width: 100%;
+        max-width: 500px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+        font-size: 18px;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+      }
+      #searchInput:focus {
+        outline: none;
+        border-color: var(--violeta);
+        box-shadow: 0 0 8px var(--azul_claro);
+      }
+      .bloco-nivel {
+        margin-bottom: 40px;
+      }
+      .bloco-nivel h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 15px;
+        border-left: 6px solid var(--violeta);
+        padding-left: 12px;
+      }
+      .produtos-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 0 10px;
+        box-sizing: border-box;
+      }
+      .produto {
+        background: white;
+        width: 100%;
+        max-width: 240px;
+        border-radius: 12px;
+        padding: 18px 15px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+      .produto:hover {
+        transform: translateY(-6px);
+        margin: 20px 0;
+        box-shadow: 0 0px 20px var(--violeta);
+      }
+      .produto p {
+        margin: 0;
+        font-weight: 600;
+        color: #444;
+        flex-grow: 1;
+        font-size: 1rem;
+      }
+      .produto img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        transition: height 0.3s;
+      }
+      .produto.pago {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        box-shadow: 0 0 20px #f59e0baa;
+        position: relative;
+      }
+      .produto.pago:hover {
+        box-shadow: 0 0 30px #fbbf24;
+        transform: translateY(-8px) scale(1.03);
+      }
+      .produto.pago::before {
+        content: "🔥 PAGO R$12,49";
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #b45309;
+        color: white;
+        font-weight: 700;
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        border-radius: 8px;
+        box-shadow: 0 0 8px #b45309cc;
+        text-transform: uppercase;
+      }
+      @media (max-width: 900px) {
+        #filtros {
+          justify-content: space-around;
+          gap: 15px;
+        }
+        .btn {
+          flex: 1 1 140px;
+          font-size: 0.95rem;
+          padding: 10px 12px;
+        }
+        #searchInput {
+          width: 50%;
+          height: 45px;
+          font-size: 16px;
+          padding: 12px 14px;
+        }
+        .bloco-nivel h3 {
+          font-size: 1.6rem;
+        }
+        .produto {
+          max-width: 250px;
+          width: auto;
+        }
+        .produto img {
+          height: 140px;
+        }
+      }
+      @media (max-width: 550px) {
+        #filtros {
+          align-items: center;
+          gap: 20px;
+        }
+        .btn {
+          width: 90%;
+          flex: none;
+          font-size: 1rem;
+        }
+        .produtos-grid {
+          padding: 0 15px;
+        }
+        .produto {
+          max-width: 250px;
+          width: auto;
+          height: 100%;
+        }
+        .produto img {
+          height: 220px;
+        }
+        .bloco-nivel h3 {
+          font-size: 1.4rem;
+        }
+        #searchInput {
+          width: 50%;
+          height: 45px;
+          font-size: 14px;
+          padding: 10px 12px;
+        }
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      // Verifica busca por texto
-      const textoMatch = nomeProduto.includes(searchInput);
+      header {
+        background: var(--violeta);
+        color: var(--branco);
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
 
-      if (idadeMatch && textoMatch) {
-        produto.style.display = "flex";
+      header h1 {
+        font-size: 24px;
+      }
+      nav {
+        max-width: 1280px;
+        height: 40px;
+        margin: auto 0;
+      }
+
+      nav ul li {
+        list-style: none;
+        display: inline;
+      }
+      nav ul li a {
+        margin-left: 20px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        color: #d8c7fd;
+      }
+      .fa-bars {
+        display: none;
+        border: none;
+        font-size: 30px;
+      }
+      .nav-list {
+        display: none;
+      }
+      @media (max-width: 750px) {
+        nav {
+          display: flex;
+          z-index: 1;
+        }
+        .fa-bars {
+          display: block;
+          z-index: 1;
+        }
+        nav ul {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background-color: var(--violeta);
+        }
+        nav ul li {
+          margin: 10px 0;
+        }
+        .menu i {
+          display: block;
+          z-index: 1;
+        }
+        .nav-list {
+          display: flex;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: -1;
+          clip-path: circle(0px at 90% -15%);
+          transition: 1s ease-out;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
+          pointer-events: none;
+        }
+        .nav.active .nav-list {
+          clip-path: circle(1500px at 90% -15%);
+          pointer-events: all;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin: 0; padding: 0">
+    <header>
+      <a style="text-decoration: none" href="../../../index.html">
+        <h1 style="cursor: pointer; color: #fff">DescomplicaBR</h1>
+      </a>
+      <nav class="nav">
+        <i class="fa-solid fa-bars"></i>
+        <ul>
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="#iniciante">Iniciante</a></li>
+          <li><a href="#intermediario">Intermediário</a></li>
+          <li><a href="#avancado">Avançado</a></li>
+        </ul>
+        <ul class="nav-list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="#iniciante">Iniciante</a></li>
+          <li><a href="#intermediario">Intermediário</a></li>
+          <li><a href="#avancado">Avançado</a></li>
+        </ul>
+      </nav>
+    </header>
+    <h1 style="text-align: center">Educação Básica</h1>
+    <div aria-label="Filtros de faixa etária">
+      <form
+        id="filtros"
+        role="group"
+        aria-label="Filtrar por faixa etária"
+        onsubmit="return false;"
+      >
+        <h2>Filtrar por faixa etária</h2>
+        <button
+          type="button"
+          class="btn"
+          onclick="filtrarIdade('crianca', this)"
+        >
+          Infantil
+        </button>
+        <button
+          type="button"
+          class="btn"
+          onclick="filtrarIdade('adolescente', this)"
+        >
+          adolescente
+        </button>
+        <button
+          type="button"
+          class="btn"
+          onclick="filtrarIdade('adulto', this)"
+        >
+          adulto
+        </button>
+        <button
+          type="button"
+          class="btn active"
+          onclick="filtrarIdade('', this)"
+        >
+          Mostrar todos
+        </button>
+      </form>
+    </div>
+    <section id="searchContainer" aria-label="Pesquisar produtos">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Pesquisar..."
+        onkeyup="filtrarProdutos()"
+        aria-label="Pesquisar produtos"
+      />
+    </section>
+    <main>
+      <section class="bloco-nivel" data-nivel="iniciante" id="iniciante">
+        <h3>Iniciante - Level Up</h3>
+        <ul class="produtos-grid">
+          <li class="produto" data-idade="crianca">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Livro de aventuras para iniciantes"
+            />
+            <h2>Aprender Brincando: O Básico Que Faz Toda Diferença</h2>
+            <p>
+              Jogos, vídeos e desenhos pra aprender português, matemática e
+              ciências de um jeito divertido e fácil.
+            </p>
+          </li>
+          <li class="produto pago" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Curso introdutório para adultos"
+            />
+            <h2>
+              Super Base Pro: O Turbo Que Vai Mudar Seu Jeito de Aprender
+              <span>🔥 VIP</span>
+            </h2>
+            <p>
+              Conteúdo completo com aulas exclusivas, desafios e suporte pra
+              você dominar o básico e voar nas matérias.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Guia de estudo pra teens"
+            />
+            <h2>Descomplica a Base: Domine o Essencial com Estilo</h2>
+            <p>
+              Aprenda o básico das matérias principais com jogos e vídeos que
+              deixam tudo mais maneiro.
+            </p>
+          </li>
+          <li class="produto" data-idade="crianca">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Jogo educativo simples"
+            />
+            <h2>Primeiro Passo no Saber: Seu Guia Para Começar com Sucesso</h2>
+            <p>
+              Base forte com atividades leves que fazem o estudo virar
+              brincadeira.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Kit de experimentos fáceis"
+            />
+            <h2>Mini Cientista</h2>
+            <p>Experimentos que fazem a galera se apaixonar pela ciência.</p>
+          </li>
+          <li class="produto" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Curso simples para reforço básico"
+            />
+            <p id="faixa-etaria">R$29,90</p>
+            <h2>Reforço Básico: Aprenda o Essencial com Confiança</h2>
+            <p>
+              Curso simples com vídeos e exercícios pra fortalecer sua base sem
+              complicação.
+            </p>
+          </li>
+        </ul>
+      </section>
+      <section
+        class="bloco-nivel"
+        data-nivel="intermediario"
+        id="intermediario"
+      >
+        <h3>Intermediário - Tá ficando sério</h3>
+        <ul class="produtos-grid">
+          <li class="produto" data-idade="crianca">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Português descomplicado"
+            />
+            <h2>Português Descomplicado: Verbos e Interpretação</h2>
+            <p>
+              Aulas práticas com exemplos do dia a dia pra você dominar verbos e
+              textos sem sufoco.
+            </p>
+          </li>
+          <li class="produto" data-idade="crianca">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Matemática na prática"
+            />
+            <h2>Matemática na Prática: Multiplicação e Frações</h2>
+            <p>
+              Jogos e exercícios pra você se amarrar em matemática e mandar bem
+              nas provas.
+            </p>
+          </li>
+          <li class="produto" data-idade="crianca">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Ciências curiosas"
+            />
+            <h2>Ciências Curiosas: Sistema Solar e Meio Ambiente</h2>
+            <p>
+              Vídeos e desafios que fazem você entender o universo e cuidar do
+              planeta.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="História e geografia"
+            />
+            <h2>Guia Completo de História e Geografia do Brasil</h2>
+            <p>
+              Conheça o Brasil colonial, cultura indígena e as regiões do país
+              de forma fácil.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Planejamento escolar"
+            />
+            <h2>Estratégias de Estudo: Monte Seu Plano e Arrase nas Provas</h2>
+            <p>
+              Aprenda a criar cronogramas leves, definir metas e acompanhar seu
+              progresso.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Ferramentas de estudo"
+            />
+            <h2>Ferramentas de Estudo Turbo: Resumos, Simulados e Mais</h2>
+            <p>
+              Resumos em PDF, planilhas e quizzes pra revisar e praticar sempre.
+            </p>
+          </li>
+          <li class="produto" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Pensamento lógico"
+            />
+            <h2>Pensamento Lógico e Organização: O Segredo do Sucesso</h2>
+            <p>
+              Desenvolva criatividade e organização pra mandar bem na escola e
+              na vida.
+            </p>
+          </li>
+          <li class="produto" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Curso completo intermediário"
+            />
+            <h2>Curso Completo Intermediário: Domine o Conteúdo</h2>
+            <p>
+              Vídeos, apostilas e atividades práticas para fixar o que você
+              aprendeu.
+            </p>
+          </li>
+          <li class="produto pago" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Mentoria e simulados avançados"
+            />
+            <h2>
+              Intermediário VIP: Mentoria e Simulados Avançados
+              <span>🔥 VIP</span>
+            </h2>
+            <p>
+              Conteúdo exclusivo e acompanhamento pra garantir sua aprovação no
+              ataque final.
+            </p>
+          </li>
+        </ul>
+      </section>
+      <section class="bloco-nivel" data-nivel="avancado" id="avancado">
+        <h3>Avançado - Pra quem quer ser nota mil</h3>
+        <ul class="produtos-grid">
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Gestão de tempo e autonomia"
+            />
+            <h2>Gestão de Tempo e Autonomia</h2>
+            <p>
+              Técnicas de alta performance, revisão eficiente e estudo ativo pra
+              dominar seus estudos.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Redação argumentativa nota mil"
+            />
+            <h2>Redação Avançada: Nota Mil</h2>
+            <p>
+              Desenvolva tese forte, argumentação com repertório e estrutura
+              perfeita pra arrebentar.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Matemática aplicada"
+            />
+            <h2>Matemática Aplicada: Problemas Reais</h2>
+            <p>
+              Funções, gráficos, álgebra e análise prática para a vida real e
+              provas casca-grossa.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Ciências humanas com contexto"
+            />
+            <h2>Ciências Humanas Contextualizadas</h2>
+            <p>
+              Geopolítica, economia, história crítica e cultura pra você
+              entender o mundo de verdade.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Ciências da natureza investigativas"
+            />
+            <h2>Ciências da Natureza: Investigação e Contexto</h2>
+            <p>
+              Biologia molecular, física e química na prática, sem decoreba.
+            </p>
+          </li>
+          <li class="produto" data-idade="adolescente">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Interpretação avançada de textos"
+            />
+            <h2>Interpretação e Multiletramentos</h2>
+            <p>
+              Leia memes, tirinhas e notícias entendendo ironia, discurso e
+              contexto além do óbvio.
+            </p>
+          </li>
+          <li class="produto" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Projeto de vida e futuro"
+            />
+            <h2>Projeto de Vida e Futuro Profissional</h2>
+            <p>
+              Teste vocacional, escolha de carreira com propósito e
+              desenvolvimento das soft skills.
+            </p>
+          </li>
+          <li class="produto" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Ferramentas e recursos de elite"
+            />
+            <h2>Ferramentas e Recursos de Elite</h2>
+            <p>
+              Banco de questões, correções comentadas e simulados que vão elevar
+              seu nível.
+            </p>
+          </li>
+          <li class="produto" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Painel do estudante expert"
+            />
+            <h2>Painel do Estudante Expert</h2>
+            <p>
+              Notícias, debates e dicas pra você ser um estudante fodão,
+              informado e produtivo.
+            </p>
+          </li>
+          <li class="produto pago" data-idade="adulto">
+            <img
+              src="https://editoracontexto.jetassets.com.br/produto/img_9788572446921_DZ.webp"
+              alt="Curso avançado VIP"
+            />
+            <h2>
+              Avançado VIP: Mentoria e Simulados Exclusivos <span>🔥 VIP</span>
+            </h2>
+            <p>
+              Conteúdo premium com mentorias, feedback real e simulados ultra
+              personalizados pra garantir a aprovação.
+            </p>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <div class="main-content">
+        <div class="left box">
+          <h2>Sobre nós</h2>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iste
+              facilis harum eos vel incidunt distinctio corrupti iure? Rem
+            </p>
+
+            <div class="social">
+              <a href="#"><span class="fab fa-facebook-f"></span></a>
+              <a href="#"><span class="fab fa-twitter"></span></a>
+              <a href="#"><span class="fab fa-instagram"></span></a>
+              <a href="#"><span class="fab fa-youtube"></span></a>
+            </div>
+          </div>
+        </div>
+        <!--left box-->
+        <div class="center box">
+          <h2>Endereço</h2>
+          <div class="content">
+            <div class="place">
+              <span class="fas fa-map-marker"></span>
+              <span class="text">Rua Exemplo, 123</span>
+            </div>
+
+            <div class="phone">
+              <span class="fas fas fa-phone-alt"></span>
+              <span class="text">+55 (00) 0000-0000</span>
+            </div>
+
+            <div class="email">
+              <span class="fas fa-envelope"></span>
+              <span class="text">exemplo@exemplo.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="right box">
+          <h2>Contato</h2>
+          <div class="content">
+            <form action="#">
+              <div class="email">
+                <div class="text">Email *</div>
+                <input type="email" required />
+              </div>
+              <div class="msg">
+                <div class="text">Mensagem *</div>
+                <textarea rows="2" cols="25" required></textarea>
+              </div>
+              <div class="btn_submit">
+                <button type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--main-content-->
+      <div class="bottom"></div>
+    </footer>
+    <script>
+      // Pegando o botão de hambúrguer e o elemento nav
+      const hamburger = document.querySelector(".fa-bars");
+      const nav = document.querySelector("nav");
+
+      console.log("Hambúrguer encontrado?", hamburger);
+      console.log("Elemento nav encontrado?", nav);
+
+      // Quando clica no hambúrguer
+      hamburger.addEventListener("click", () => {
+        console.log("Clicou no hambúrguer!");
+        nav.classList.toggle("active");
+        console.log(
+          "Classe 'active' foi alternada na nav. Classe atual:",
+          nav.className
+        );
+      });
+
+      // Pegando todos os links dentro da nav
+      const links = document.querySelectorAll("nav a");
+      console.log("Links encontrados dentro da nav:", links);
+
+      // Quando clica em qualquer link do menu
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          console.log(`Clicou no link: ${link.textContent}`);
+          nav.classList.remove("active");
+          console.log("Classe 'active' foi removida da nav.");
+        });
+      });
+
+      let filtroIdadeAtivo = "";
+      console.log("Filtro de idade inicial:", filtroIdadeAtivo);
+
+      // Função chamada quando clica em um botão de idade
+      window.filtrarIdade = function (idade, botao) {
+        console.log("Filtro por idade chamado. Idade:", idade);
+        filtroIdadeAtivo = idade;
+
+        // Remove a classe 'active' de todos os botões
+        document.querySelectorAll("#filtros .btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        console.log("Todos os botões perderam a classe 'active'");
+
+        // Adiciona a classe 'active' no botão clicado
+        if (botao) {
+          botao.classList.add("active");
+          console.log(
+            "Classe 'active' adicionada no botão:",
+            botao.textContent
+          );
+        }
+
+        filtrarProdutos(); // Chama a função de filtro
+      };
+
+      // Função para filtrar os produtos com base no texto e idade
+      window.filtrarProdutos = function () {
+        const searchInput = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        console.log("Texto pesquisado:", searchInput);
+
+        const produtos = document.querySelectorAll(".produto");
+        console.log("Quantidade de produtos encontrados:", produtos.length);
+
+        produtos.forEach((produto) => {
+          const idadeProduto = produto.getAttribute("data-idade");
+          const nomeProduto = produto.querySelector("h2")
+            ? produto.querySelector("h2").textContent.toLowerCase()
+            : "";
+          const descProduto = produto.querySelector("p")
+            ? produto.querySelector("p").textContent.toLowerCase()
+            : "";
+
+          let idadeMatch = true;
+          if (filtroIdadeAtivo && filtroIdadeAtivo !== "") {
+            idadeMatch = idadeProduto === filtroIdadeAtivo;
+          }
+
+          const textoMatch =
+            nomeProduto.includes(searchInput) ||
+            descProduto.includes(searchInput);
+
+          if (idadeMatch && textoMatch) {
+            produto.style.display = "";
+            console.log(`Produto visível: ${nomeProduto}`);
+          } else {
+            produto.style.display = "none";
+            console.log(`Produto ocultado: ${nomeProduto}`);
+          }
+        });
+
+        // Mostra ou esconde os blocos conforme os produtos visíveis
+        document.querySelectorAll(".bloco-nivel").forEach((bloco) => {
+          const produtosVisiveis = bloco.querySelectorAll(
+            ".produto:not([style*='display: none'])"
+          );
+          if (produtosVisiveis.length === 0) {
+            bloco.style.display = "none";
+            console.log("Bloco ocultado por não ter produtos visíveis.");
+          } else {
+            bloco.style.display = "";
+            console.log("Bloco visível com produtos.");
+          }
+        });
+      };
+
+      // Inicializa ativando o botão que já estiver com a classe 'active'
+      const btnAtivo = document.querySelector("#filtros .btn.active");
+      if (btnAtivo) {
+        console.log(
+          "Botão de filtro já ativo encontrado:",
+          btnAtivo.textContent
+        );
+        filtrarIdade("", btnAtivo);
       } else {
-        produto.style.display = "none";
+        console.log(
+          "Nenhum botão de filtro estava ativo ao carregar a página."
+        );
       }
-    });
-
-    // Depois de filtrar, esconde blocos que não tem produto visível
-    document.querySelectorAll(".bloco-nivel").forEach((bloco) => {
-      const produtosVisiveis = bloco.querySelectorAll(
-        ".produto:not([style*='display: none'])"
-      );
-      if (produtosVisiveis.length === 0) {
-        bloco.style.display = "none";
-      } else {
-        bloco.style.display = "block";
-      }
-    });
-  }
-
-  // Inicializa com mostrar todos
-  filtrarIdade("", document.querySelector("#filtros .btn.active"));
-</script>
+    </script>
+  </body>
+</html>
