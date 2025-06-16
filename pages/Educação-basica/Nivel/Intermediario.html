@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Educação Básica - Nível Intermediário</title>
+    <link rel="stylesheet" href="../../../root/root.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -40,7 +41,7 @@
       }
 
       h2 {
-        color: #3b82f6;
+        color: var(--violeta);
         margin-bottom: 10px;
       }
 
@@ -63,13 +64,13 @@
         padding: 10px;
         border-radius: 20px;
         justify-content: center;
-        background-color: #2563eb;
+        background-color: var(--azul_escuro);
         margin: 0 auto;
         margin-top: 20px;
         transition: all 0.3s ease;
       }
       .produtos:hover {
-        background-color: purple;
+        background-color: var(--violeta);
         transform: scale(1.05);
       }
       .produtos a {
@@ -246,7 +247,7 @@
                 <div class="text">Mensagem *</div>
                 <textarea rows="2" cols="25" required></textarea>
               </div>
-              <div class="btn">
+              <div class="btn_submit">
                 <button type="submit">Enviar</button>
               </div>
             </form>

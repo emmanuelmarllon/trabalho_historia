@@ -1,8 +1,14 @@
+:root {
+  --azul_claro: #81d4fa;
+  --azul_escuro: #2973ff;
+  --violeta: #7857c2;
+  --branco: #f5f5f5;
+}
 footer {
   bottom: 0px;
   width: 100%;
-  color: #9ca3af;
-  background-color: #111827;
+  color: var(--branco);
+  background-color: #241a3a;
 }
 .main-content {
   display: flex;
@@ -25,7 +31,7 @@ footer {
   content: "";
   width: 15%;
   height: 2px;
-  background: #2563eb;
+  background: var(--azul_escuro);
   top: -10px;
 }
 .box .content:before {
@@ -33,7 +39,7 @@ footer {
   content: "";
   height: 2px;
   width: 100%;
-  background: #111827;
+  background: #241a3a;
   top: -10px;
 }
 .left .content .social {
@@ -45,8 +51,8 @@ footer {
 .left .content .social a span {
   width: 40px;
   height: 40px;
-  background: #1a1a1a;
-  color: #9ca3af;
+  background: var(--azul_escuro);
+  color: #fff;
   text-align: center;
   line-height: 40px;
   border-radius: 5px;
@@ -54,26 +60,25 @@ footer {
   transition: 0.3s;
 }
 .left .content .social a span:hover {
-  background: #2563eb;
-  color: #fff;
+  background: var(--violeta);
 }
 .left .content p {
   text-align: justify;
 }
 .center .content .fas {
   font-size: 23px;
-  background: #1a1a1a;
+  background: var(--azul_escuro);
   width: 45px;
   height: 45px;
   line-height: 45px;
   text-align: center;
   border-radius: 50%;
   transition: 0.3s;
+  color: #fff;
   cursor: pointer;
 }
 .center .content .fas:hover {
-  background: #2563eb;
-  color: #fff;
+  background: var(--violeta);
 }
 .center .content .text {
   font-size: 17px;
@@ -107,10 +112,11 @@ footer {
   margin-bottom: 2px;
   color: #9ca3af;
 }
-.right form .btn {
+.right form .btn_submit {
   margin-top: 10px;
 }
-.right form .btn button {
+.right form .btn_submit button {
+  border: none;
   height: 40px;
   width: 100%;
   background: #2563eb;
@@ -119,8 +125,9 @@ footer {
   cursor: pointer;
   transition: 0.3s;
 }
-.right form .btn button:hover {
-  background: #000;
+.right form .btn_submit button:hover {
+  background: #1d4ed8;
+  color: #fff;
 }
 .bottom .center {
   padding: 5px;

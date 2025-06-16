@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DescomplicaBR</title>
+    <link rel="stylesheet" href="root/root.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -33,8 +34,9 @@
 
       .hero {
         padding: 60px 40px;
-        background: #e0f2fe;
+        background: #6a0dad67;
         text-align: center;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.164);
       }
 
       .hero h2 {
@@ -83,7 +85,7 @@
       .card a {
         display: inline-block;
         margin-top: 10px;
-        background: #3b82f6;
+        background: var(--azul_escuro);
         color: #fff;
         padding: 10px 16px;
         border-radius: 8px;
@@ -92,7 +94,7 @@
       }
 
       .card a:hover {
-        background: #2563eb;
+        background: var(--violeta);
       }
       .final-text {
         padding: 40px;
@@ -229,7 +231,7 @@
                 <div class="text">Mensagem *</div>
                 <textarea rows="2" cols="25" required></textarea>
               </div>
-              <div class="btn">
+              <div class="btn_submit">
                 <button type="submit">Enviar</button>
               </div>
             </form>

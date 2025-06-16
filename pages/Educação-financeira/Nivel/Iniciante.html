@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Educação Financeira - Nível Iniciante</title>
+    <link rel="stylesheet" href="../../../root/root.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -39,8 +40,8 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
       }
 
-      h2 {
-        color: #3b82f6;
+      section h2 {
+        color: var(--violeta);
         margin-bottom: 10px;
       }
 
@@ -58,21 +59,20 @@
         margin-bottom: 8px;
       }
 
-            .produtos {
+      .produtos {
         width: max-content;
         text-align: center;
         padding: 10px;
         border-radius: 20px;
         justify-content: center;
-        background-color: #2563eb;
+        background-color: var(--azul_escuro);
         margin: 0 auto;
         margin-top: 20px;
         transition: all 0.3s ease;
       }
       .produtos:hover {
-        background-color: purple;
+        background-color: var(--violeta);
         transform: scale(1.05);
-        
       }
       .produtos a {
         color: white;
@@ -109,39 +109,48 @@
     <main>
       <div class="Conteudo">
         <section>
-  <h2>🎯 Público-Alvo</h2>
-  <p>Pessoas que ainda estão começando a entender como o dinheiro funciona e querem sair das dívidas, guardar grana e ter mais controle.</p>
-</section>
+          <h2>🎯 Público-Alvo</h2>
+          <p>
+            Pessoas que ainda estão começando a entender como o dinheiro
+            funciona e querem sair das dívidas, guardar grana e ter mais
+            controle.
+          </p>
+        </section>
 
-<section>
-  <h2>📘 Sobre o Curso</h2>
-  <p>Vamos te ensinar o essencial sobre dinheiro: como ele entra, como ele sai e como você pode usar melhor no dia a dia sem estresse.</p>
-</section>
+        <section>
+          <h2>📘 Sobre o Curso</h2>
+          <p>
+            Vamos te ensinar o essencial sobre dinheiro: como ele entra, como
+            ele sai e como você pode usar melhor no dia a dia sem estresse.
+          </p>
+        </section>
 
-<section>
-  <h2>📚 Conteúdos Básicos</h2>
-  <ul>
-    <li>Diferença entre desejo e necessidade</li>
-    <li>Como organizar gastos fixos e variáveis</li>
-    <li>Como montar um orçamento pessoal simples</li>
-    <li>Dicas pra guardar dinheiro (mesmo que seja pouco)</li>
-  </ul>
-</section>
+        <section>
+          <h2>📚 Conteúdos Básicos</h2>
+          <ul>
+            <li>Diferença entre desejo e necessidade</li>
+            <li>Como organizar gastos fixos e variáveis</li>
+            <li>Como montar um orçamento pessoal simples</li>
+            <li>Dicas pra guardar dinheiro (mesmo que seja pouco)</li>
+          </ul>
+        </section>
 
-<section>
-  <h2>🛠️ Ferramentas</h2>
-  <ul>
-    <li>Planilha de gastos (prontinha)</li>
-    <li>Desafio 5 reais por semana</li>
-    <li>Checklist de despesas essenciais</li>
-  </ul>
-</section>
+        <section>
+          <h2>🛠️ Ferramentas</h2>
+          <ul>
+            <li>Planilha de gastos (prontinha)</li>
+            <li>Desafio 5 reais por semana</li>
+            <li>Checklist de despesas essenciais</li>
+          </ul>
+        </section>
 
-<section>
-  <h2>🎓 Curso Completo</h2>
-  <p>Com vídeos curtos, exercícios e exemplos do cotidiano, esse curso vai te ajudar a dar os primeiros passos na vida financeira.</p>
-</section>
-
+        <section>
+          <h2>🎓 Curso Completo</h2>
+          <p>
+            Com vídeos curtos, exercícios e exemplos do cotidiano, esse curso
+            vai te ajudar a dar os primeiros passos na vida financeira.
+          </p>
+        </section>
       </div>
 
       <div class="produtos">
@@ -201,7 +210,7 @@
                 <div class="text">Mensagem *</div>
                 <textarea rows="2" cols="25" required></textarea>
               </div>
-              <div class="btn">
+              <div class="btn_submit">
                 <button type="submit">Enviar</button>
               </div>
             </form>
