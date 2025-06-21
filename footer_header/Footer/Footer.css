@@ -1,8 +1,8 @@
 :root {
-  --azul_claro: #81d4fa;
-  --azul_escuro: #2973ff;
-  --violeta: #7857c2;
-  --branco: #f5f5f5;
+  --azul_claro: #81d4fa !important;
+  --azul_escuro: #2973ff !important;
+  --violeta: #7857c2 !important;
+  --branco: #f5f5f5 !important;
 }
 footer {
   bottom: 0px;
@@ -31,7 +31,7 @@ footer {
   content: "";
   width: 15%;
   height: 2px;
-  background: var(--azul_escuro);
+  background: var(--azul_escuro) !important;
   top: -10px;
 }
 .box .content:before {
@@ -39,7 +39,7 @@ footer {
   content: "";
   height: 2px;
   width: 100%;
-  background: #241a3a;
+  background: #241a3a !important;
   top: -10px;
 }
 .left .content .social {
@@ -51,8 +51,8 @@ footer {
 .left .content .social a span {
   width: 40px;
   height: 40px;
-  background: var(--azul_escuro);
-  color: #fff;
+  background: var(--azul_escuro) !important;
+  color: #fff !important;
   text-align: center;
   line-height: 40px;
   border-radius: 5px;
@@ -60,25 +60,25 @@ footer {
   transition: 0.3s;
 }
 .left .content .social a span:hover {
-  background: var(--violeta);
+  background: var(--violeta) !important;
 }
 .left .content p {
   text-align: justify;
 }
 .center .content .fas {
   font-size: 23px;
-  background: var(--azul_escuro);
+  background: var(--azul_escuro) !important;
   width: 45px;
   height: 45px;
   line-height: 45px;
   text-align: center;
   border-radius: 50%;
   transition: 0.3s;
-  color: #fff;
+  color: #fff !important;
   cursor: pointer;
 }
 .center .content .fas:hover {
-  background: var(--violeta);
+  background: var(--violeta) !important;
 }
 .center .content .text {
   font-size: 17px;
@@ -95,22 +95,22 @@ footer {
 .right form textarea {
   width: 100%;
   font-size: 17px;
-  color: #fff;
-  background: #151515;
+  color: #fff !important;
+  background: #151515 !important;
   padding-left: 10px;
-  border: 1px solid #9ca3af;
+  border: 1px solid #9ca3af !important;
 }
 .right form input {
   height: 35px;
 }
 .right form input:focus,
 .right form textarea:focus {
-  outline-color: #3498db;
+  outline-color: #3498db !important;
 }
 .right form .text {
   font-size: 17px;
   margin-bottom: 2px;
-  color: #9ca3af;
+  color: #9ca3af !important;
 }
 .right form .btn_submit {
   margin-top: 10px;
@@ -119,27 +119,27 @@ footer {
   border: none;
   height: 40px;
   width: 100%;
-  background: #2563eb;
+  background: #2563eb !important;
   font-size: 17px;
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
 }
 .right form .btn_submit button:hover {
-  background: #1d4ed8;
-  color: #fff;
+  background: #1d4ed8 !important;
+  color: #fff !important;
 }
 .bottom .center {
   padding: 5px;
   font-size: 15px;
-  background: #151515;
+  background: #151515 !important;
   text-align: center;
 }
 .bottom .center span {
-  color: #9ca3af;
+  color: #9ca3af !important;
 }
 .bottom .center a {
-  color: #2563eb;
+  color: #2563eb !important;
   text-decoration: none;
 }
 .bottom .center a:hover {
